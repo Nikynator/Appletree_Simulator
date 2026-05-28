@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Appletree_Simulator.Core/Appletree_Simulator.Core.csproj" />
+  <Project Path="Appletree_Simulator.Web/Appletree_Simulator.Web.csproj" />
+</Solution>

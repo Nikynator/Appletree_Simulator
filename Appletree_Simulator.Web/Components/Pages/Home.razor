@@ -1,0 +1,122 @@
+﻿@page "/"
+@using Appletree_Simulator.Core
+<PageTitle>Home</PageTitle>
+@rendermode InteractiveServer
+
+<h1>Let's pick some Apples</h1>
+
+@foreach (Apple apple in garden.GetApples())
+{
+    // This If-Statement is needed for automatic refresh
+    if (apple != null)
+    {
+        <button @onclick="() => Pick(apple)"
+                style="position: relative;
+               width: 60px;
+               height: 55px;
+               background: radial-gradient(circle at 40% 30%, #ff6b6b, #cc0000);
+               color: white;
+               font-weight: bold;
+               border: none;
+               border-radius: 50% 50% 45% 45% / 40% 40% 60% 60%;
+               box-shadow: inset -3px -3px 8px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.16);
+               cursor: pointer;
+               display: inline-flex;
+               align-items: center;
+               justify-content: center;
+               font-family: sans-serif;
+               overflow: visible;">
+
+            <span style="position: absolute; 
+                 top: -10px; 
+                 left: 50%; 
+                 transform: translateX(-50%) rotate(15deg); 
+                 width: 4px; 
+                 height: 14px; 
+                 background-color: #7A431D; 
+                 border-radius: 2px;">
+
+                <span style="position: absolute;
+                     top: 2px;
+                     left: 3px;
+                     width: 10px;
+                     height: 6px;
+                     background-color: #4CAF50;
+                     border-radius: 0 100% 0 100%;
+                     transform: rotate(-20deg);"></span>
+            </span>
+
+            <span style="position: relative; z-index: 1;"></span>
+        </button>
+    }
+}
+<h3>Basket:</h3>
+@foreach (Apple apple in basket.Apples)
+{
+    // This If-Statement is needed for automatic refresh
+    if (apple != null)
+    {
+        <p style="position: relative;
+          width: 60px;
+          height: 55px;
+          background: radial-gradient(circle at 40% 30%, #ff6b6b, #cc0000);
+          color: white;
+          font-weight: bold;
+          border: none;
+          border-radius: 50% 50% 45% 45% / 40% 40% 60% 60%;
+          box-shadow: inset -3px -3px 8px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.16);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-family: sans-serif;
+          overflow: visible;
+          margin: 0;">
+    
+            <span style="position: absolute; 
+                 top: -10px; 
+                 left: 50%; 
+                 transform: translateX(-50%) rotate(15deg); 
+                 width: 4px; 
+                 height: 14px; 
+                 background-color: #7A431D; 
+                 border-radius: 2px;">
+        
+                <span style="position: absolute;
+                     top: 2px;
+                     left: 3px;
+                     width: 10px;
+                     height: 6px;
+                     background-color: #4CAF50;
+                     border-radius: 0 100% 0 100%;
+                     transform: rotate(-20deg);"></span>
+            </span>
+    
+            <span style="position: relative; z-index: 1;"></span>
+        </p>
+    }
+}
+
+@code
+{
+
+    readonly Basket basket = new Basket();
+    readonly Garden garden = new Garden();
+    private void Pick(Apple apple)
+    {
+        bool sucessfullPick = garden.TakeApple(apple.Id);
+
+        if (!sucessfullPick)
+        {
+            ErrorStatus();
+        }
+        else
+        {
+            basket.AddAppleToBasket(apple);
+        }
+    }
+
+    private static void ErrorStatus()
+    {
+        Console.WriteLine("There has been a problem with the PickApple Methode");
+    }
+}
