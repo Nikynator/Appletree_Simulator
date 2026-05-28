@@ -3,7 +3,7 @@
 public class Basket
 {
 
-    public readonly List<Apple> Apples = new List<Apple>();
+    public readonly List<Apple> Apples = new();
 
     public void AddAppleToBasket(Apple apple)
     {

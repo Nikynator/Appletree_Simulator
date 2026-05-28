@@ -1,19 +1,17 @@
-﻿using System;
-
-namespace Appletree_Simulator.Core;
+﻿namespace Appletree_Simulator.Core;
 
 public class AppleFactory
 {
-    public Apple[] CreateApples(int applesAmount)
+    public List<Apple> CreateApples(int applesAmount)
     {
-        Apple[] apples = new Apple[applesAmount];
+        List<Apple> apples = new();
 
-        for (int idNumberIndex = 0; idNumberIndex < applesAmount; idNumberIndex++)
+        for (int i = 0; i < applesAmount; i++)
         {
             Guid id = Guid.NewGuid();
-
-            apples[idNumberIndex] = new Apple(id);
+            apples.Add(new Apple(id));
         }
+
         return apples;
     }
 }

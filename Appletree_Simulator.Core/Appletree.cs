@@ -2,24 +2,24 @@
 
 public class Appletree
 {
-    public Apple[] Apples { get; }
+    public List<Apple> Apples { get; }
 
     public Appletree()
     {
-        AppleFactory factory = new AppleFactory();
+        AppleFactory factory = new();
         this.Apples = factory.CreateApples(10);
     }
 
     public bool PickApple(Guid id)
     {
-        for (int i = 0; i < this.Apples.Length; i++)
+        Apple? apple = this.Apples.FirstOrDefault(apple => apple.Id == id);
+
+        if (apple == null)
         {
-            if (this.Apples[i] != null && this.Apples[i].Id == id)
-            {
-                this.Apples[i] = null!;
-                return true;
-            }
+            return false;
         }
-        return false;
+
+        this.Apples.Remove(apple);
+        return true;
     }
 }

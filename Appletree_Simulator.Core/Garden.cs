@@ -2,17 +2,17 @@
 
 public class Garden
 {
-    private readonly Appletree Appletree = new Appletree();
+    private readonly Appletree appletree = new();
 
-    public Apple[] GetApples()
+    public List<Apple> GetApples()
     {
-        return this.Appletree.Apples;
+        return this.appletree.Apples;
     }
 
     public bool TakeApple(Guid id)
     {
-        this.Appletree.PickApple(id);
+        bool applePicked = this.appletree.PickApple(id);
 
-        return true;
+        return applePicked;
     }
 }
